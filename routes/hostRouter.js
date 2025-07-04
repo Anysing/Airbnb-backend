@@ -8,16 +8,9 @@ hostRouter.get("/add-home", (req, res, next) => {
 });
 
 hostRouter.post("/add-home", (req, res, next) => {
-//   registeredhome.push({
-//     housename: req.body.housename,
-//     price: req.body.price,
-//     location: req.body.location,
-//     imageURL: req.body.imageURL,
-//   });
-    console.log(req.body.housename);
-    
-    res.render("HomeAdd", { pageTitle: "Home Added" });
+  registeredhome.push(req.body)
+  res.render("HomeAdd", { pageTitle: "Home Added" });
 });
 
-module.exports = hostRouter;
-module.exports = registeredhome;
+exports.hostRouter = hostRouter
+exports.registeredhome = registeredhome
