@@ -1,15 +1,12 @@
-<%- include('partials/head') %>
+<%- include('../partials/head') %>
 </head>
 <body>
-  <%- include('partials/navbar') %>
+  <%- include('../partials/navbar') %>
   <main class="container mx-auto bg-white shadow-lg rounded-lg p-8 mt-10">
     <h2 class="text-3xl text-red-500 font-bold text-center mb-6">
-      Here are Your registered homes:
+      this is the home detail page:
     </h2>
-
-    <!-- Responsive Grid with proper spacing -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <% registeredhome.forEach(home => { %>
         <div class="max-w-sm mx-auto bg-white shadow-lg rounded-lg overflow-hidden mt-10">
             <img src= <%= home.imageURL %> alt="House Image" class="w-full h-48 object-cover">
 
@@ -23,14 +20,11 @@
                 <p class="text-gray-600 mb-1">
                     <span class="font-semibold">Location:</span> <%= home.location %>
                 </p>
-    
-                <a href="#" class="block mt-4 bg-orange-500 text-white text-center py-2 rounded-md hover:bg-orange-600 transition duration-300">
-                    View Details
-                </a>
+                <div class="mt-6">
+                  <%- include('../partials/favourites') %>
+                </div>
             </div>
         </div>
-
-      <% }) %>
     </div>
 
   </main>
