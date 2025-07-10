@@ -5,6 +5,7 @@ const userRouter = require("./routes/userRouter")
 const {hostRouter} = require("./routes/hostRouter")
 const  errorController = require("./controllers/errors")
 
+
 const app = express()
 
 app.set('view engine', 'ejs');
@@ -20,4 +21,5 @@ app.use(errorController.PageNotFound)
 
 app.listen(3001,() => {
   console.log("The server is running on http://localhost:3001");
+  
 })

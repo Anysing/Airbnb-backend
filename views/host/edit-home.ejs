@@ -61,6 +61,14 @@
         />
       </div>
 
+      <div>
+        <label class="block text-gray-700 font-semibold mb-2" for="imageURL">Description</label>
+        <textarea
+          name="description"
+          placeholder="Describe your home"
+          class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400"><%= editing ? home.description : '' %></textarea>
+      </div>
+
       <button
         type="submit"
         class="w-full bg-orange-500 text-white font-semibold py-2 rounded-md hover:bg-orange-600 transition duration-300"

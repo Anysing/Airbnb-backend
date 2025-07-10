@@ -1,44 +1,28 @@
-const fs = require("fs");
-const path = require("path");
-const rootDir = require("../utils/pathUtils");
-
-
-const DataPath = path.join(rootDir, "data", "homedetail.json"); 
+const db = require('../utils/databaseUtils')
 
 module.exports = class Home {
-  constructor(housename, price, location, imageURL) {
+  constructor(housename, price, location, imageURL,description,id) {
     this.housename = housename;
     this.price = price;
     this.location = location;
     this.imageURL = imageURL;
+    this.description = description;
+    this.id = id;
   }
 
   save() {
-    this.id = Math.random().toString()
-    Home.fetchAll((registeredhome) => {
-      registeredhome.push(this)
-      fs.writeFile(DataPath, JSON.stringify(registeredhome), (error) => {
-        if (error) {
-          console.log("Error occured while writing into the file", error);
-        } else {
-          console.log("File writing successfully");
-        }
-      });
-    });
+    db.execute('insert into homes(housename,price,location,imageURL,description) values (?,?,?,?,?)',[this.housename,this.price,this.location,this.imageURL,this.description])
   }
 
-  static fetchAll(callback) {
-    fs.readFile(DataPath, (error, data) => {
-      callback(!error ? JSON.parse(data) : []);
-    });
+  static fetchAll() {
+    return db.execute('select * from homes')
   }
 
-  static HomeByID(homeid , callback) {
-    Home.fetchAll(home => {
-      const homebyid = home.find(homie =>
-        homie.id === homeid);
-      callback(homebyid)
-    })
+  static HomeByID(homeid) {
+   return db.execute('select * from homes where id = ?',[homeid])
+  }
+
+  static deletehome(homeid) {
+    return db.execute('delete from homes where id = ?',[homeid])
   }
 };
-

@@ -34,9 +34,18 @@
                   Edit
                 </button>
               </a>
-              <button class="flex-1 bg-red-500 text-white text-center py-3 px-4 rounded-md hover:bg-red-600 transition duration-300 text-sm font-medium">
-                Delete
-              </button>
+                <form action="/host/deletehosthome/<%= home.id %>" method="POST">
+                  <button
+                    type="submit"
+                    class="flex-1 text-white text-center py-3 px-4 rounded-md transition duration-300 text-sm font-medium"
+                    style="background-color: red; border: none"
+                    onmouseover="this.style.backgroundColor='red'"
+                    onmouseout="this.style.backgroundColor='red'"
+                  >
+                    Delete
+                  </button>
+                  <input type="hidden" name="id" value="<%= home.id %>" />
+                </form>
             </div>
 
             <!-- SOLUTION 2: Using !important classes (uncomment to test) -->

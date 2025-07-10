@@ -2,7 +2,7 @@ const Favourites = require("../models/Favourites");
 const Home = require("../models/home");
 
 exports.getHomes = (req, res, next) => {
-  Home.fetchAll((registeredhome) => {
+  Home.fetchAll().then(([registeredhome]) => {
     res.render("store/index", {
       registeredhome: registeredhome,
       pageTitle: "index page",
@@ -12,7 +12,7 @@ exports.getHomes = (req, res, next) => {
 };
 
 exports.getHomelist = (req, res, next) => {
-  Home.fetchAll((registeredhome) => {
+  Home.fetchAll().then(([registeredhome]) => {
     res.render("store/home-list", {
       registeredhome: registeredhome,
       pageTitle: "Registered Home",
@@ -22,7 +22,7 @@ exports.getHomelist = (req, res, next) => {
 };
 
 exports.getbookings = (req, res, next) => {
-  Home.fetchAll((registeredhome) => {
+  Home.fetchAll().then(([registeredhome]) => {
     res.render("store/bookings", {
       registeredhome: registeredhome,
       pageTitle: "Booked Homes",
@@ -33,14 +33,13 @@ exports.getbookings = (req, res, next) => {
 
 exports.gethomedetails = (req, res, next) => {
   const homeid = req.params.homeID;
-  Home.HomeByID(homeid,(homebyid) => {
-    console.log(homebyid);
-    
+  Home.HomeByID(homeid).then(([home]) => {
+    const homebyid = home[0]
     if (!homebyid) {
-      res.redirect('/Home-list')
+      res.redirect("/Home-list");
     } else {
       res.render("store/home-details", {
-        home : homebyid, 
+        home: homebyid,
         pageTitle: "Home details",
         currentPage: "Homes",
       });
@@ -51,31 +50,32 @@ exports.gethomedetails = (req, res, next) => {
 exports.getfavourite = (req, res, next) => {
   Favourites.getfavourite((favoritehome) => {
     Home.fetchAll((registeredhome) => {
-      const favhome = favoritehome.map(homeid => registeredhome.find(home => home.id === homeid))
-      res.render('store/favourite',{
-        Favouritehome : favhome, 
+      const favhome = favoritehome.map((homeid) =>
+        registeredhome.find((home) => home.id === homeid)
+      );
+      res.render("store/favourite", {
+        Favouritehome: favhome,
         pageTitle: "Favourites",
         currentPage: "favourite",
-      })
-    })
-  }
-  )
+      });
+    });
+  });
 };
 
 exports.postAddtoFavourites = (req, res, next) => {
-  Favourites.addtofavourite(req.body.id, error => {
+  Favourites.addtofavourite(req.body.id, (error) => {
     if (error) {
-      console.log('Error occured during add to favourite',error);
+      console.log("Error occured during add to favourite", error);
     }
-    res.redirect('/favourite')
-  })
+    res.redirect("/favourite");
+  });
 };
 
 exports.postRemoveFavourites = (req, res, next) => {
-  Favourites.RemoveFavourite(req.body.id, error => {
+  Favourites.RemoveFavourite(req.body.id, (error) => {
     if (error) {
-      console.log('Error occured during Remove from favourite',error);
+      console.log("Error occured during Remove from favourite", error);
     }
-    res.redirect('/favourite')
-  })
+    res.redirect("/favourite");
+  });
 };
