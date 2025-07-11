@@ -1,3 +1,4 @@
+const Favourites = require("../models/Favourites");
 const Home = require("../models/home");
 
 exports.getAddhomes = (req, res, next) => {
@@ -53,7 +54,9 @@ exports.postEdithomes = (req, res, next) => {
 exports.postDeletehosthome = (req, res, next) => {
   const homeid = req.params.homeid;
   Home.deletehome(homeid).then( () => {
-    res.redirect("/host/host-homes");
+    Favourites.RemoveFavourite(homeid).then(() => {
+      res.redirect("/host/host-homes");
+    })
   }).catch(error => {
     console.log("Error occured during deleting home", error);
   })

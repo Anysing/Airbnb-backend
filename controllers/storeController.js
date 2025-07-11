@@ -48,34 +48,32 @@ exports.gethomedetails = (req, res, next) => {
 };
 
 exports.getfavourite = (req, res, next) => {
-  Favourites.getfavourite((favoritehome) => {
-    Home.fetchAll((registeredhome) => {
-      const favhome = favoritehome.map((homeid) =>
-        registeredhome.find((home) => home.id === homeid)
-      );
+  Favourites.getfavourite().then(([home]) => {
+    Home.fetchAll().then(([registeredhome]) => {
+      const favhome = home.map((homeid) => registeredhome.find((reghome) => reghome.id === homeid.id))
       res.render("store/favourite", {
         Favouritehome: favhome,
         pageTitle: "Favourites",
         currentPage: "favourite",
       });
-    });
-  });
-};
+  })
+});
+}
 
 exports.postAddtoFavourites = (req, res, next) => {
-  Favourites.addtofavourite(req.body.id, (error) => {
-    if (error) {
+  const homeid = req.body.id
+  Favourites.addtofavourite(homeid).then(() => {
+      res.redirect("/favourite");
+  }).catch((error) => {
       console.log("Error occured during add to favourite", error);
-    }
-    res.redirect("/favourite");
-  });
+  })
 };
 
 exports.postRemoveFavourites = (req, res, next) => {
-  Favourites.RemoveFavourite(req.body.id, (error) => {
-    if (error) {
+  const homeid = req.body.id;
+  Favourites.RemoveFavourite(homeid).then(() => {
+      res.redirect("/favourite");
+  }).catch((error) => {
       console.log("Error occured during Remove from favourite", error);
-    }
-    res.redirect("/favourite");
-  });
-};
+  })
+}

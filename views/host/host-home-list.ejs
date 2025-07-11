@@ -26,9 +26,9 @@
 
             <!-- SOLUTION 1: Using inline styles as backup -->
             <div class="flex justify-between mt-4 space-x-2">
-              <button class="flex-1 bg-orange-500 text-white text-center py-3 px-4 rounded-md hover:bg-orange-600 transition duration-300 text-sm font-medium">
-                View Detail
-              </button>
+              <a href="/homes/<%= home.id %>"><button class="flex-1 bg-orange-500 text-white text-center py-3 px-4 rounded-md hover:bg-orange-600 transition duration-300 text-sm font-medium">
+                        View Details
+                    </button></a>
               <a href="/host/edit-home/<%= home.id %>?editing=true">
                 <button class="flex-1 text-white text-center py-3 px-4 rounded-md transition duration-300 text-sm font-medium" style="background-color: #10b981; border: none;" onmouseover="this.style.backgroundColor='#059669'" onmouseout="this.style.backgroundColor='#10b981'">
                   Edit
@@ -47,37 +47,6 @@
                   <input type="hidden" name="id" value="<%= home.id %>" />
                 </form>
             </div>
-
-            <!-- SOLUTION 2: Using !important classes (uncomment to test) -->
-            <!-- 
-            <div class="flex gap-2 mt-4">
-              <button class="flex-1 text-white text-center py-2 px-1 rounded-md transition duration-300 text-xs font-medium" style="background-color: #f97316 !important;">
-                View Detail
-              </button>
-              <button class="flex-1 text-white text-center py-2 px-1 rounded-md transition duration-300 text-xs font-medium" style="background-color: #10b981 !important;">
-                Edit
-              </button>
-              <button class="flex-1 text-white text-center py-2 px-1 rounded-md transition duration-300 text-xs font-medium" style="background-color: #ef4444 !important;">
-                Delete
-              </button>
-            </div>
-            -->
-
-            <!-- SOLUTION 3: Using different green/blue shades -->
-            <!-- 
-            <div class="flex gap-2 mt-4">
-              <button class="flex-1 bg-orange-500 text-white text-center py-2 px-1 rounded-md hover:bg-orange-600 transition duration-300 text-xs font-medium">
-                View Detail
-              </button>
-              <button class="flex-1 bg-emerald-500 text-white text-center py-2 px-1 rounded-md hover:bg-emerald-600 transition duration-300 text-xs font-medium">
-                Edit
-              </button>
-              <button class="flex-1 bg-red-500 text-white text-center py-2 px-1 rounded-md hover:bg-red-600 transition duration-300 text-xs font-medium">
-                Delete
-              </button>
-            </div>
-            -->
-
           </div>
         </div>
       <% }) %>

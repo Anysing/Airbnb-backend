@@ -11,7 +11,12 @@ module.exports = class Home {
   }
 
   save() {
-    db.execute('insert into homes(housename,price,location,imageURL,description) values (?,?,?,?,?)',[this.housename,this.price,this.location,this.imageURL,this.description])
+    if(this.id) { //update or edithome
+      return db.execute('update homes set housename = ?, price = ?, location = ?, imageURL = ?, description = ? where id = ?',[this.housename,this.price,this.location,this.imageURL,this.description,this.id])
+    }else { //insert or addhome
+      return db.execute('insert into homes(housename,price,location,imageURL,description) values (?,?,?,?,?)',[this.housename,this.price,this.location,this.imageURL,this.description])
+    }
+    
   }
 
   static fetchAll() {
