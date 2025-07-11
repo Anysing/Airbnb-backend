@@ -4,7 +4,7 @@ module.exports = class Favourites {
 
   static addtofavourite(homeid) {
     return Favourites.getfavourite().then(([favourites]) => {
-      const isFavourite = favourites.some((fav) => fav.id === homeid);
+      const isFavourite = favourites.some((fav) => fav.id === Number(homeid));
       if (isFavourite) {
         return Promise.resolve()
       }else {
